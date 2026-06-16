@@ -1,4 +1,4 @@
-# ArUco Sheet Generator
+# ArUco Square Sheet Generator
 
 A web tool for generating printable sheets with ArUco markers at the corners, useful for computer vision and augmented reality applications.
 
