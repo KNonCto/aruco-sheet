@@ -1,16 +1,26 @@
-# React + Vite
+# ArUco Sheet Generator
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A web tool for generating printable sheets with ArUco markers at the corners, useful for computer vision and augmented reality applications.
 
-Currently, two official plugins are available:
+![App preview](docs/preview.png)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## How it works
 
-## React Compiler
+Configure the sheet type and analysis area dimensions using the sliders on the right panel. The preview updates in real time. Once happy with the result, hit **Imprimir** to open the print dialog — from there you can print physically or save as PDF.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- Zoom in/out on the preview using the controls at the bottom right
+- Markers use the `DICT_4X4_50` ArUco dictionary (IDs 0–3)
+- Supported sheet sizes: A3, A4, A5, A6, Carta, Legal
 
-## Expanding the ESLint configuration
+## Tech
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- React + Vite
+- Tailwind CSS
+- SVG rendering (no canvas, no external CV libraries)
+
+## Run locally
+
+```bash
+npm install
+npm run dev
+```
