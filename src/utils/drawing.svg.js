@@ -1,4 +1,4 @@
-import { SHEET_SIZES, MARKER_RATIO } from "../constants";
+import { SHEET_SIZES, MARKER_RATIO, PAGE_SAFE_MARGIN_CM } from "../constants";
 import { markerToSvg } from "./aruco.svg";
 
 export function buildSvg(sheetType, areaW, areaH) {
@@ -60,7 +60,7 @@ export function buildSvg(sheetType, areaW, areaH) {
       >${areaH.toFixed(1)} cm</text>
 
       <text
-        x="0.2" y="${sheetH - 0.15}"
+        x="${PAGE_SAFE_MARGIN_CM}" y="${sheetH - PAGE_SAFE_MARGIN_CM}"
         font-size="${fontSizeSmall}" font-family="sans-serif"
         text-anchor="start" dominant-baseline="auto"
         fill="#555"

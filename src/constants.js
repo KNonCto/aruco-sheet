@@ -7,6 +7,8 @@ export const SHEET_SIZES = {
   Legal: [21.6, 35.6],
 };
 
+export const PAGE_SAFE_MARGIN_CM = 0.4;
+
 export const MARKER_RATIO = 0.15;
 export const MIN_GAP_CM = 0.5;
 export const DPI = 300;
