@@ -1,13 +1,38 @@
 import { SHEET_SIZES, MARKER_RATIO, PAGE_SAFE_MARGIN_CM } from "../constants";
 import { markerToSvg } from "./aruco.svg";
 
-export function buildSvg(sheetType, areaW, areaH) {
+const LINE_DASH_PATTERNS = {
+  solid: null,
+  dashed: "0.3,0.15",
+  dotted: "0.05,0.1",
+};
+
+export function buildSvg(
+  sheetType,
+  areaW,
+  areaH,
+  lineStyle = "solid",
+  lineColor = "#000000",
+) {
   const [sheetW, sheetH] = SHEET_SIZES[sheetType];
   const markerSize = Math.min(areaW, areaH) * MARKER_RATIO;
 
   const offX = (sheetW - areaW) / 2;
   const offY = (sheetH - areaH) / 2;
   const m = markerSize;
+
+  const strokeWidth = 0.05;
+  const strokeOffset = strokeWidth / 2;
+
+  const cornerGap = m * 0.5; // 50% del tamaño del marcador
+
+  const x1 = offX - strokeOffset;
+  const y1 = offY - strokeOffset;
+  const x2 = offX + areaW + strokeOffset;
+  const y2 = offY + areaH + strokeOffset;
+
+  const dashPattern = LINE_DASH_PATTERNS[lineStyle];
+  const dashAttr = dashPattern ? `stroke-dasharray="${dashPattern}"` : "";
 
   const corners = [
     [0, offX - m, offY - m],
@@ -36,11 +61,17 @@ export function buildSvg(sheetType, areaW, areaH) {
     >
       <rect x="0" y="0" width="${sheetW}" height="${sheetH}" fill="white"/>
 
-      <rect
-        x="${offX}" y="${offY}"
-        width="${areaW}" height="${areaH}"
-        fill="none" stroke="black" stroke-width="0.05"
-      />
+      <!-- línea superior -->
+      <line x1="${x1 + cornerGap}" y1="${y1}" x2="${x2 - cornerGap}" y2="${y1}" stroke="${lineColor}" stroke-width="${strokeWidth}" ${dashAttr}/>
+      
+      <!-- línea inferior -->
+      <line x1="${x1 + cornerGap}" y1="${y2}" x2="${x2 - cornerGap}" y2="${y2}" stroke="${lineColor}" stroke-width="${strokeWidth}" ${dashAttr}/>
+      
+      <!-- línea izquierda -->
+      <line x1="${x1}" y1="${y1 + cornerGap}" x2="${x1}" y2="${y2 - cornerGap}" stroke="${lineColor}" stroke-width="${strokeWidth}" ${dashAttr}/>
+      
+      <!-- línea derecha -->
+      <line x1="${x2}" y1="${y1 + cornerGap}" x2="${x2}" y2="${y2 - cornerGap}" stroke="${lineColor}" stroke-width="${strokeWidth}" ${dashAttr}/>
 
       ${markers}
 

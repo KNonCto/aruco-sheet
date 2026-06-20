@@ -9,6 +9,8 @@ const initialState = {
   sheetType: "Carta",
   areaW: 10,
   areaH: 15,
+  lineStyle: "solid",
+  lineColor: "#000000",
 };
 
 export default function App() {
@@ -55,23 +57,28 @@ export default function App() {
   const error = validate(state.sheetType, state.areaW, state.areaH);
 
   return (
-    <div className="flex h-screen w-screen overflow-hidden bg-gray-100">
-      <div className="relative w-[70%] flex items-center justify-center p-8">
+    <div className="flex flex-col md:flex-row h-screen w-screen overflow-hidden bg-gray-100">
+      <div className="relative flex-1 flex items-center justify-center p-4 md:p-8 min-h-0 overflow-hidden">
         <SheetPreview
           sheetType={state.sheetType}
           areaW={state.areaW}
           areaH={state.areaH}
+          lineStyle={state.lineStyle}
+          lineColor={state.lineColor}
           error={error}
           zoom={zoom}
         />
         <ZoomControls zoom={zoom} onZoom={setZoom} onReset={() => setZoom(1)} />
       </div>
 
-      <div className="w-[30%] h-full border-l border-gray-200 bg-white p-6 overflow-y-auto flex flex-col">
+      <div className="w-full md:w-85 md:shrink-0 h-auto md:h-full border-t md:border-t-0 md:border-l border-gray-200 bg-white p-6 overflow-y-auto flex flex-col max-h-[50vh] md:max-h-none">
         <h1 className="text-lg font-medium text-gray-800 mb-6">
           ArUco Sheet Generator
         </h1>
-        <Controls state={state} onChange={handleChange} />
+        <div className="mb-4">
+          <Controls state={state} onChange={handleChange} />
+        </div>
+
         <div className="mt-auto pt-4 border-t border-gray-200">
           <PrintButton onPrint={handlePrint} />
         </div>

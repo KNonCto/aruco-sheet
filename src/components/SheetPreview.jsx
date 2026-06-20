@@ -2,13 +2,21 @@ import { useMemo, useRef, useState, useEffect } from "react";
 import { buildSvg } from "../utils/drawing.svg";
 import { SHEET_SIZES } from "../constants";
 
-export default function SheetPreview({ sheetType, areaW, areaH, error, zoom }) {
+export default function SheetPreview({
+  sheetType,
+  areaW,
+  areaH,
+  lineStyle,
+  lineColor,
+  error,
+  zoom,
+}) {
   const containerRef = useRef(null);
   const [size, setSize] = useState({ width: 600, height: 800 });
 
   const svg = useMemo(
-    () => buildSvg(sheetType, areaW, areaH),
-    [sheetType, areaW, areaH],
+    () => buildSvg(sheetType, areaW, areaH, lineStyle, lineColor),
+    [sheetType, areaW, areaH, lineStyle, lineColor],
   );
 
   useEffect(() => {
